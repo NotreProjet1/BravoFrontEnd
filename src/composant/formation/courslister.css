@@ -1,0 +1,76 @@
+.cours-list {
+  font-family: Arial, sans-serif;
+}
+
+.cours-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.cours-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.cours-description {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.cours-file-link {
+  display: block;
+  color: #007bff;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+.cours-file-link:hover {
+  text-decoration: underline;
+}
+
+.cours-details-link {
+  color: #28a745;
+  text-decoration: none;
+}
+
+.cours-details-link:hover {
+  text-decoration: underline;
+}
+.search-container {
+  margin-bottom: 20px;
+}
+.search-box {
+    position: relative;
+    width: 300px;
+    margin-top: 30px; /* Espacement en haut */
+    margin-left: auto; /* Marge à gauche automatique */
+    margin-right: auto; /* Marge à droite automatique */
+    border-color: rgb(27, 130, 70)
+  }
+  
+.search-box input[type="text"]:focus {
+    border-color: rgb(27, 130, 70) !important; /* Utilisation de !important pour forcer l'application du style */
+  }
+  
+
+  
+  
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5; /* Couleur de fond gris clair */
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: rgb(31, 173, 102); /* Couleur de l'icône de recherche */
+}

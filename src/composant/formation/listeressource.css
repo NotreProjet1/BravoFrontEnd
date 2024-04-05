@@ -1,0 +1,81 @@
+.search-container {
+  margin-bottom: 20px;
+}
+.search-box {
+    position: relative;
+    width: 300px;
+    margin-top: 30px; /* Espacement en haut */
+    margin-left: auto; /* Marge à gauche automatique */
+    margin-right: auto; /* Marge à droite automatique */
+    border-color: rgb(27, 130, 70)
+  }
+  
+.search-box input[type="text"]:focus {
+    border-color: rgb(27, 130, 70) !important; /* Utilisation de !important pour forcer l'application du style */
+  }
+  
+
+  
+  
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5; /* Couleur de fond gris clair */
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: rgb(31, 173, 102); /* Couleur de l'icône de recherche */
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.cours-card {
+  flex-basis: calc(33.33% - 10px);
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 40px;
+}
+
+.cardd {
+  width: 100%;
+}
+
+.cardd-image {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.cardd-content {
+  margin-top: 10px;
+}
+
+.cours-title {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.cours-description {
+  font-size: 14px;
+  color: #666;
+}
+
+.cours-file-link {
+  display: block;
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  margin-top: 10px;
+}
