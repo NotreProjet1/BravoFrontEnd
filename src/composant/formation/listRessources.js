@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Document, Page } from '@react-pdf/renderer';
 import { Link } from 'react-router-dom';
-import '../formation/listeressource.css';
+
 import { FaSearch } from 'react-icons/fa'; // Importation de l'icône de recherche depuis react-icons
 
 const RessourceList = () => {

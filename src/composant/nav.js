@@ -73,10 +73,12 @@ const Navbar = ({ reloadnavbar }) => {
                         Consulter
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
+                    <Dropdown.Menu> 
+                    <Dropdown.Item href="/FormationAdmin"> FormationAdmin</Dropdown.Item>
                         <Dropdown.Item href="/CoursGList"> CoursGList</Dropdown.Item>
                         <Dropdown.Item href="/FormationsList">FormationsList </Dropdown.Item>
-                        <Dropdown.Item href="/RessourceList"> RessourceList</Dropdown.Item>
+                        <Dropdown.Item href="/RessourceList"> RessourceList</Dropdown.Item> 
+                        <Dropdown.Item href="/Sidebar"> Sidebar</Dropdown.Item> 
                     </Dropdown.Menu>
                 </Dropdown>
                 <Link to='/about'>
@@ -140,8 +142,8 @@ const Navbar = ({ reloadnavbar }) => {
                                 </Dropdown.Menu>
                             </Dropdown></li>
 
-                            <li> <Link to='/about' className='stylenone'>
-                                <a>About Us</a>
+                            <li> <Link to='/Contact' className='stylenone'>
+                                <a>About Us</a> 
                             </Link></li>
 
                             <li> <Link to='/contact' className='stylenone'>

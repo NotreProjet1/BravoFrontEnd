@@ -6,20 +6,17 @@ import CardGrid from './gratuisFormation';
 import PageCollectionsCommerce from './collectionCommerce';
 import PageCollectionsDev from './collectionDev';
 import Photos from './lesimage';
-import styled from 'styled-components'; // Importer styled-components pour styliser les composants
+import styled from 'styled-components';
+import Statique from './statique'; // Utilisez le même nom utilisé lors de l'exportation
 
-
-// HomeFinal component
 const HomeFinal = () => {
   return (
     <Container>
-      {/* <Title>Welcome to EduPioneer</Title> */}
-
-      {/* Afficher les composants dans l'ordre souhaité */}
       <Photos />
       <SectionTitle>Featured Collections</SectionTitle>
       <PageCollectionsCommerce />
-      <PageCollectionsDev />
+      <PageCollectionsDev /> 
+      <Statique /> {/* Utilisez le composant importé */}
       <PageCollections />
 
       <SectionTitle>Popular Courses</SectionTitle>
@@ -32,7 +29,6 @@ const HomeFinal = () => {
   );
 };
 
-// Styled-components pour styliser les éléments
 const Container = styled.div`
   padding: 20px;
 `;
@@ -52,5 +48,4 @@ const SectionTitle = styled.h2`
   margin-bottom: 20px;
 `;
 
-// Exporter le composant HomeFinal
 export default HomeFinal;

@@ -88,11 +88,15 @@
 .profile-banner {
     position: relative;
     width: 100%;
+
   }
   
   .banner-image {
+    margin-bottom: -70px;
     width: 100%;
-    height: 400px; /* Pour maintenir le ratio de l'image */
+    height: 200px;
+    filter: brightness(70%); /* Pour ajuster la luminosité de l'image si nécessaire */
+
   }
   
   .profile-banner h2 {

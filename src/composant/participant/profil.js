@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import UserProfileModal from './model';
 import {
   MDBCol,
   MDBContainer,
@@ -13,31 +13,29 @@ import {
   MDBBtn,
   MDBBreadcrumb,
   MDBBreadcrumbItem,
-  MDBProgress,
-  MDBProgressBar,
   MDBIcon,
   MDBListGroup,
   MDBListGroupItem,
-  // Import additional components for modal (e.g., MDBModal, MDBModalBody, MDBModalFooter)
 } from 'mdb-react-ui-kit';
+import '../../composant/participant/model';
 
 const UserProfile = () => {
   const { id } = useParams();
   const location = useLocation();
+  const history = useHistory();
   const [participantData, setParticipantData] = useState(location.state ? location.state.participantData : null);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const getAxiosInstance = () => {
       const token = localStorage.getItem('token');
-      const instance = axios.create({
-        baseURL: 'http://localhost:3001',
+      return axios.create({
+        baseURL: 'http://localhost:3000',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         }
       });
-      return instance;
     };
 
     const fetchParticipantData = async (id) => {
@@ -55,21 +53,55 @@ const UserProfile = () => {
     }
   }, [id, participantData]);
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  const handleOpenModal = async (id) => {
+    if (id) {
+      setIsModalOpen(true);
+    } else {
+      console.error('ID du participant non défini');
+    }
+  };
+
+  const updateParticipantData = async (id, updatedData) => {
+    try {
+      const axiosInstance = getAxiosInstance();
+      await axiosInstance.put(`http://localhost:3000/participant/modifier/${id}`, updatedData);
+      history.push(`/participant/modifier/${id}`);
+    } catch (error) {
+      console.error('Error updating participant data:', error);
+    }
+  };
+
+  const handleSaveChanges = async (editedUserData) => {
+    try {
+      await updateParticipantData(editedUserData);
+    } catch (error) {
+      console.error('Error saving changes:', error);
+    }
+  };
+
+  const getAxiosInstance = () => {
+    const token = localStorage.getItem('token');
+    return axios.create({
+      baseURL: 'http://localhost:3000',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+  };
+
   return (
-    <section style={{ backgroundColor: '#eee' }}>
+    <section style={{ background: 'linear-gradient(to bottom, #1526D1 0%, #add8e6 25%, white 50%, #add8e6 75%, #1526D1 100%)' }}>
+
       <MDBContainer className="py-5">
         <MDBRow>
           <MDBCol>
             <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
-
-              <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
+              <MDBBreadcrumbItem active>{participantData && participantData.nom ? ` ${participantData.nom}` : ''} Profile</MDBBreadcrumbItem>
             </MDBBreadcrumb>
           </MDBCol>
         </MDBRow>
@@ -87,14 +119,12 @@ const UserProfile = () => {
                     fluid
                   />
                 </div>
-                {/* Ajoutez ici le reste de votre contenu */}
                 <div className="d-flex justify-content-center mb-2">
                   <MDBBtn>Follow</MDBBtn>
                   <MDBBtn outline className="ms-1">Message</MDBBtn>
                 </div>
               </MDBCardBody>
             </MDBCard>
-
 
             <MDBCard className="mb-4 mb-lg-0">
               <MDBCardBody className="p-0">
@@ -131,9 +161,10 @@ const UserProfile = () => {
                     <MDBCardText>Full Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{participantData && participantData.prenom}  {participantData && participantData.nom}  </MDBCardText>
+                    <MDBCardText className="text-muted">{participantData && participantData.prenom && participantData.nom ? `${participantData.prenom} ${participantData.nom}` : ''}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
+
                 <hr />
                 <MDBRow>
                   <MDBCol sm="3">
@@ -146,7 +177,7 @@ const UserProfile = () => {
                 <hr />
                 <MDBRow>
                   <MDBCol sm="3">
-                    <MDBCardText>categorie	</MDBCardText>
+                    <MDBCardText>categorie  </MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
                     <MDBCardText className="text-muted">{participantData && participantData.categorie}</MDBCardText>
@@ -171,13 +202,23 @@ const UserProfile = () => {
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
+              <section style={{justifyContent:"center", display:"flex",alignItems:"center" ,marginBottom:"20px"}}>
+              <MDBBtn onClick={handleOpenModal}  >Modifier vos donne </MDBBtn>
+
+
+                {/* <button onClick={handleOpenModal}>Modifier Profil</button> */}
+                {isModalOpen && (
+                  <UserProfileModal isOpen={isModalOpen} onClose={handleCloseModal} userData={participantData} userId={participantData.id_p} updateParticipantData={updateParticipantData} />
+                )}
+              </section>
             </MDBCard>
           </MDBCol>
         </MDBRow>
       </MDBContainer>
+
+
+
     </section>
-
-
   );
 };
 

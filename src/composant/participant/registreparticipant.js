@@ -1,26 +1,15 @@
-// ParticipantRegister.js
 import React, { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
+import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput, MDBRow, MDBCol } from 'mdb-react-ui-kit';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {
-    MDBInput,
-    MDBCol,
-    MDBRow,
-    MDBBtn,
-    MDBCard,
-    MDBCardBody
-} from 'mdb-react-ui-kit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faFacebookF,
-    faGoogle,
-    faTwitter,
-    faGithub
-} from '@fortawesome/free-brands-svg-icons';
+import { faFacebookF, faGoogle, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
 import '../../css/ParticipantRegister.css';
-import { useHistory } from 'react-router-dom'
+import { height } from '@fortawesome/free-solid-svg-icons/faAward';
+
 const ParticipantRegister = () => {
-    const history = useHistory(); 
+    const history = useHistory();
     const [step, setStep] = useState(1);
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
@@ -31,11 +20,10 @@ const ParticipantRegister = () => {
     const [tel, setTel] = useState('');
 
     const handleNextStep = async () => {
-        // Logique de validation pour chaque étape avant de passer à l'étape suivante
         switch (step) {
             case 1:
                 if (!nom || !prenom || !emailP) {
-                    toast.error('Veuillez remplir tous les champs obligatoires.'); // Affichage du message d'erreur avec ReactToastify
+                    toast.error('Veuillez remplir tous les champs obligatoires.');
                     return;
                 }
                 break;
@@ -53,7 +41,6 @@ const ParticipantRegister = () => {
                 break;
         }
 
-        // Envoi de la demande d'inscription au backend
         const response = await fetch('http://localhost:3000/participant/register', {
             method: 'POST',
             headers: {
@@ -74,13 +61,10 @@ const ParticipantRegister = () => {
             const result = await response.json();
             console.log('Inscription réussie:', result);
             toast.success('Inscription réussie!');
-            history.push({
-                pathname: '/login',
-                
-              });
+            history.push('/login');
         } else {
             console.error('Échec de l inscription:', response.statusText);
-            toast.error('Échec de l\'inscription. Veuillez réessayer.'); 
+            toast.error('Échec de l\'inscription. Veuillez réessayer.');
         }
 
         setStep(step + 1);
@@ -92,133 +76,125 @@ const ParticipantRegister = () => {
     };
 
     return (
-        <div className="background_image background-radial-gradient">
-        <MDBCard className='mx-auto mt-5 card-container'>
-            <MDBCardBody className="form-wrapper">
-                <form onSubmit={handleSubmit}>
-                    {step === 1 && (
-                        <>
-                            <MDBRow className='mb-3'>
-                                <MDBCol size='6'>
-                                <label htmlFor="Nom" className="form-label">Nom</label>
-                                    <MDBInput
-                                        size='sm'
-                                        type='text'
-                                        id='nom'
-                                      
-                                        value={nom}
-                                        onChange={(e) => setNom(e.target.value)}
-                                        required
-                                    />
-                                </MDBCol>
-                                <MDBCol size='6'>
-                                <label htmlFor="Prénom" className="form-label">Prénom</label>
-                                    <MDBInput
-                                        size='sm'
-                                        type='text'
-                                        id='prenom'
-                                        value={prenom}
-                                        onChange={(e) => setPrenom(e.target.value)}
-                                        required
-                                    />
-                                </MDBCol>
-                            </MDBRow>
+        <MDBContainer fluid className='my-5'>
+            <MDBRow className='g-0 align-items-center'>
+                <MDBCol col='6'>
+                    <MDBCard className='my-5 cascading-right' style={{ background: 'hsla(0, 0%, 100%, 0.55)', backdropFilter: 'blur(30px)' }}>
+                        <MDBCardBody className='p-5 shadow-5 text-center'>
+                            <h2 className="fw-bold mb-5">Sign up now</h2>
+                            <form onSubmit={handleSubmit}>
+                                <MDBRow className='mb-3'>
+                                    <MDBCol size='6'>
+                                        <label htmlFor="Nom" className="form-label">Nom</label>
+                                        <MDBInput
+                                            size='sm'
+                                            type='text'
+                                            id='nom'
+                                            value={nom}
+                                            onChange={(e) => setNom(e.target.value)}
+                                            required
+                                        />
+                                    </MDBCol>
+                                    <MDBCol size='6'>
+                                        <label htmlFor="Prénom" className="form-label">Prénom</label>
+                                        <MDBInput
+                                            size='sm'
+                                            type='text'
+                                            id='prenom'
+                                            value={prenom}
+                                            onChange={(e) => setPrenom(e.target.value)}
+                                            required
+                                        />
+                                    </MDBCol>
+                                </MDBRow>
 
-                            <MDBRow className='mb-3'>
-                                <MDBCol>
-                                    <label className='form-label'>Domaine</label>
-                                    <select
-                                        className='form-select mb-3'
-                                        value={domaine}
-                                        onChange={(e) => setDomaine(e.target.value)}
-                                        required
-                                    >
-                                        <option value='' disabled>Choisissez votre domaine</option>
-                                        <option value='ecommerce'>E-commerce</option>
-                                        <option value='Développeur'>Développeur</option>
-                                    </select>
-                                </MDBCol>
-                                <MDBCol>
-                                    <label className='form-label'>Catégorie</label>
-                                    <select
-                                        className='form-select mb-3'
-                                        value={categorie}
-                                        onChange={(e) => setCategorie(e.target.value)}
-                                        required
-                                    >
-                                        <option value='' disabled>Choisissez votre catégorie</option>
-                                        <option value='professionnelle'>Professionnelle</option>
-                                        <option value='debuitant'>Débutant</option>
-                                    </select>
-                                </MDBCol>
-                            </MDBRow>
-                            <label htmlFor="Téléphone" className="form-label">Téléphone</label>
-                            <MDBInput
-                                className='mb-3'
-                                size='sm'
-                                type='tel'
-                                id='tel'
-                                value={tel}
-                                onChange={(e) => setTel(e.target.value)}
-                                required
-                            />
-                                <label htmlFor="Email" className="form-label">Email</label>
-                            <MDBInput
-                                className='mb-3'
-                                size='sm'
-                                type='email'
-                                id='emailP'
-                                value={emailP}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
-                                <label htmlFor="mots_de_passeP" className="form-label">Mot de passe</label>
-                            <MDBInput
-                                className='mb-3'
-                                size='sm'
-                                type='password'
-                                id='mots_de_passeP'
-                                value={mots_de_passeP}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                        </>
-                    )}
-                    <MDBBtn type='button' onClick={handleNextStep} className='mb-3' block>
-                        {step === 1 ? 'Suivant' : 'Inscription'}
-                    </MDBBtn>   
+                                <MDBRow className='mb-3'>
+                                    <MDBCol>
+                                        <label className='form-label'>Domaine</label>
+                                        <select
+                                            className='form-select mb-3'
+                                            value={domaine}
+                                            onChange={(e) => setDomaine(e.target.value)}
+                                            required
+                                        >
+                                            <option value='' disabled>Choisissez votre domaine</option>
+                                            <option value='ecommerce'>E-commerce</option>
+                                            <option value='Développeur'>Développeur</option>
+                                        </select>
+                                    </MDBCol>
+                                    <MDBCol>
+                                        <label className='form-label'>Catégorie</label>
+                                        <select
+                                            className='form-select mb-3'
+                                            value={categorie}
+                                            onChange={(e) => setCategorie(e.target.value)}
+                                            required
+                                        >
+                                            <option value='' disabled>Choisissez votre catégorie</option>
+                                            <option value='professionnel'>Professionnel</option>
+                                            <option value='étudiant'>Étudiant</option>
+                                        </select>
+                                    </MDBCol>
+                                </MDBRow>
 
-                    <div className='text-center'>
-                        {step === 1 && (
-                            <p>
-                                Déjà membre? <a href='#!'>Se connecter</a>
-                            </p>
-                        )}
+                                <MDBRow className='mb-3'>
+                                    <MDBCol>
+                                        <label htmlFor="Email" className="form-label">Email</label>
+                                        <MDBInput
+                                            size='sm'
+                                            type='email'
+                                            id='email'
+                                            value={emailP}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            required
+                                        />
+                                    </MDBCol>
+                                </MDBRow>
 
-                        <p>ou inscrivez-vous avec:</p>
+                                <MDBRow className='mb-3'>
+                                    <MDBCol>
+                                        <label htmlFor="téléphone" className="form-label">Téléphone</label>
+                                        <MDBInput
+                                            size='sm'
+                                            type='text'
+                                            id='tel'
+                                            value={tel}
+                                            onChange={(e) => setTel(e.target.value)}
+                                            required
+                                        />
+                                    </MDBCol>
+                                </MDBRow>
 
-                        <MDBBtn floating color='secondary' className='mx-1'>
-                            <FontAwesomeIcon icon={faFacebookF} />
-                        </MDBBtn>
+                                <MDBRow className='mb-3'>
+                                    <MDBCol>
+                                        <label htmlFor="Mot_de_passe" className="form-label">Mot de passe</label>
+                                        <MDBInput
+                                            size='sm'
+                                            type='password'
+                                            id='mot_de_passe'
+                                            value={mots_de_passeP}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            required
+                                        />
+                                    </MDBCol>
+                                    
+                                </MDBRow>
 
-                        <MDBBtn floating color='secondary' className='mx-1'>
-                            <FontAwesomeIcon icon={faGoogle} />
-                        </MDBBtn>
-
-                        <MDBBtn floating color='secondary' className='mx-1'>
-                            <FontAwesomeIcon icon={faTwitter} />
-                        </MDBBtn>
-
-                        <MDBBtn floating color='secondary' className='mx-1'>
-                            <FontAwesomeIcon icon={faGithub} />
-                        </MDBBtn>
-                    </div>
-                </form>
-            </MDBCardBody>
-            <ToastContainer /> 
-        </MDBCard>
-        </div>
+                                <MDBBtn color='light' type='submit' onClick={handleNextStep}>Suivant</MDBBtn>
+                            </form>
+                            <div className="text-muted mt-3">
+                                <small>Vous avez déjà un compte? <a href="/login">Connectez-vous ici</a></small>
+                            </div>
+                        </MDBCardBody>
+                    </MDBCard>
+                </MDBCol>
+                <MDBCol col='6'>
+          <img src="https://img.freepik.com/vecteurs-libre/concept-abstrait_23-2148547986.jpg?t=st=1713545250~exp=1713548850~hmac=efe0bf98cad201067250e41d6a6c10bcaf603a39de16e32a2326df82e18b1614&w=996" class="w-100 rounded-4 shadow-4 "  style={{height:"1050px" }} 
+            alt="" fluid/>
+        </MDBCol>
+            </MDBRow>
+        </MDBContainer>
     );
 };
 
-export default ParticipantRegister; 
+export default ParticipantRegister;

@@ -10,7 +10,7 @@ import CertificatesTable from './composant/liste';
 import login from './composant/login';
 import VideoPage from './composant/vedio';
 import publication from './composant/publication';
-import FormationPage from './composant/formation/formation';
+
 import HomeFinal from './composant/homefinal';
 import ParticipantRegister from './composant/participant/registreparticipant';
 import Register from './composant/registreinstructeur';
@@ -58,9 +58,9 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={HomeFinal} />
         
-
+ 
           <Route path="/VideoPage" component={VideoPage} />
-          <Route path="/Formationp" component={FormationPage} />
+       
           <Route path="/UserProfile" component={UserProfile} />
           <Route path="/UserProfileParticipant" component={UserProfileParticipant} />
 
@@ -81,7 +81,7 @@ const App = () => {
           <Route path="/AddRessource" component={AddRessource} />
   
           <Route path="/UserProfile" component={UserProfile} />
-          <Route path="/AccountSettings" component={AccountSettings} />
+          <Route path="/AccountSettings/:userId" component={AccountSettings} />
           <Route path="/ModifierInstructeur" component={ModifierInstructeur} />
           <Route path="/ChangePassword" component={ChangePassword} />
           <Route path="/AccountSettings" component={AccountSettings} /> 

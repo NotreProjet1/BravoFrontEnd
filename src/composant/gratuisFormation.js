@@ -77,26 +77,10 @@ const RecipeReviewCard = () => {
           className="card-image"
         />
       </CardMedia>
-      {isHovered && (
-        <HoverContent className="hover-content">
-          <Typography variant="h6" color="text.primary">
-            Plant de cour
-          </Typography>
-          <Typography variant="body2" color="text.primary">
-            Prix: $15.99
-          </Typography>
-          <Typography variant="body2" color="text.primary">
-            Plat: Paella aux crevettes et chorizo
-          </Typography>
-          <Link to="/">
-            Voir plus <StarIcon />
-          </Link>
-        </HoverContent>
-      )}
+     
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+       titre de formation
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -120,8 +104,8 @@ const RecipeReviewCard = () => {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Paella aux crevettes et chorizo"
-        subheader="14 septembre 2016"
+        title="nom et prenom de formateur "
+        subheader="date de cration formation"
       />
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
